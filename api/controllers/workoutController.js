@@ -24,10 +24,14 @@ const getSingleWorkouts = async (req, res) => {
 
 //Create new workouts into the database
 const createWorkout = async (req, res) => {
-  const { title, load, reps } = req.body;
+  const { title, load, reps } = req.body.data;
 
   try {
-    const workout = await Workout.create({ title, load, reps });
+    const workout = await Workout.create({
+      title,
+      load: parseInt(load),
+      reps: parseInt(reps),
+    });
     return res.status(200).json(workout);
   } catch (error) {
     console.log(error.message);
